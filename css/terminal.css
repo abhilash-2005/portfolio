@@ -1,0 +1,339 @@
+/* ============================================
+   TERMINAL COMPONENT STYLES
+   ============================================ */
+
+.terminal-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.terminal {
+    background: var(--bg-terminal);
+    border: 1px solid var(--border-glow);
+    border-radius: 6px;
+    box-shadow:
+        0 0 0 1px rgba(0, 255, 65, 0.05),
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        0 0 80px rgba(0, 255, 65, 0.05);
+    overflow: hidden;
+    font-family: var(--font-mono);
+    position: relative;
+}
+
+/* Terminal top bar */
+.terminal-bar {
+    background: #1a1a1a;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.1);
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 7px;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminal-dot.red {
+    background: #ff5f57;
+    box-shadow: 0 0 6px rgba(255, 95, 87, 0.5);
+}
+
+.terminal-dot.yellow {
+    background: #febc2e;
+    box-shadow: 0 0 6px rgba(254, 188, 46, 0.5);
+}
+
+.terminal-dot.green {
+    background: #28c840;
+    box-shadow: 0 0 6px rgba(40, 200, 64, 0.5);
+}
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #666;
+    letter-spacing: 2px;
+}
+
+.terminal-status {
+    font-size: 0.65rem;
+    color: var(--green);
+    letter-spacing: 1px;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+/* Terminal body */
+.terminal-body {
+    padding: 1.5rem;
+    min-height: 320px;
+    max-height: 480px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--green-dark);
+    border-radius: 2px;
+}
+
+/* Terminal output lines */
+.t-line {
+    margin-bottom: 3px;
+    line-height: 1.5;
+    font-size: 0.85rem;
+}
+
+.t-prompt {
+    color: var(--green);
+}
+
+.t-prompt::before {
+    content: 'abhilash@portfolio:~$ ';
+    color: var(--cyan);
+}
+
+.t-prompt.root::before {
+    content: 'root@portfolio:~# ';
+    color: var(--red);
+}
+
+.t-output {
+    color: var(--text-dim);
+    padding-left: 0;
+}
+
+.t-success {
+    color: var(--green);
+}
+
+.t-error {
+    color: var(--red);
+}
+
+.t-warning {
+    color: var(--yellow);
+}
+
+.t-info {
+    color: var(--cyan);
+}
+
+.t-comment {
+    color: #555;
+}
+
+.t-highlight {
+    color: var(--orange);
+}
+
+.t-dim {
+    color: #333;
+}
+
+/* Typing cursor */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--green);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    box-shadow: 0 0 8px var(--green-glow);
+}
+
+/* Interactive terminal input */
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    border-top: 1px solid rgba(0, 255, 65, 0.05);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+}
+
+.terminal-prompt-label {
+    color: var(--cyan);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--green);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    caret-color: var(--green);
+    padding: 0 8px;
+}
+
+.terminal-input::placeholder {
+    color: #333;
+}
+
+/* Auto-type animation */
+.auto-type {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 0.5s steps(30, end) forwards;
+}
+
+@keyframes typing {
+    from {
+        max-width: 0;
+        opacity: 0;
+    }
+
+    to {
+        max-width: 100%;
+        opacity: 1;
+    }
+}
+
+/* Help table */
+.t-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0;
+    font-size: 0.8rem;
+}
+
+.t-table td {
+    padding: 3px 10px;
+    vertical-align: top;
+}
+
+.t-table td:first-child {
+    color: var(--cyan);
+    width: 160px;
+    white-space: nowrap;
+}
+
+.t-table td:last-child {
+    color: var(--text-dim);
+}
+
+/* ASCII art */
+.ascii-art {
+    color: var(--green-dim);
+    font-size: 0.55rem;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-shadow: 0 0 8px var(--green-glow);
+}
+
+/* Scan animation */
+.t-scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    opacity: 0.3;
+    animation: scanDown 4s linear infinite;
+}
+
+@keyframes scanDown {
+    from {
+        top: 0;
+        opacity: 0.3;
+    }
+
+    to {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* ===== BIG TERMINAL (full page showcase) ===== */
+.terminal-full {
+    min-height: 520px;
+    max-height: 650px;
+}
+
+/* Project entry in terminal */
+.t-project-block {
+    border-left: 2px solid var(--green-dim);
+    padding-left: 12px;
+    margin: 8px 0;
+}
+
+.t-project-name {
+    color: var(--cyan);
+    font-size: 0.85rem;
+}
+
+.t-project-status {
+    font-size: 0.75rem;
+    margin: 2px 0;
+}
+
+.t-project-desc {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ===== HOME TERMINAL ===== */
+.hero-terminal-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+/* Progress indicator */
+.t-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    margin: 2px 0;
+}
+
+.t-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
+    max-width: 200px;
+}
+
+.t-progress-fill {
+    height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green-glow);
+}
+
+/* Category header in terminal */
+.t-category {
+    font-size: 0.85rem;
+    color: var(--orange);
+    border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+    padding-bottom: 4px;
+    margin: 8px 0 6px;
+    letter-spacing: 2px;
+}

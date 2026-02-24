@@ -1,0 +1,465 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Abhilash Portfolio</title>
+    <meta name="description"
+        content="Get in touch with Abhilash — cybersecurity learner, system administrator, and web developer." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Info cards */
+        .contact-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.35s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-info-card:hover {
+            border-color: var(--border-glow);
+            transform: translateX(6px);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.08);
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .contact-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+        }
+
+        .contact-value {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--green);
+        }
+
+        .contact-value a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+            color: var(--cyan);
+        }
+
+        /* Form */
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+        }
+
+        .form-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--green);
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-title::before {
+            content: '// ';
+            color: var(--text-dim);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .form-label::before {
+            content: '> ';
+            color: var(--green);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: #0c0c0c;
+            border: 1px solid var(--border);
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            padding: 10px 14px;
+            outline: none;
+            transition: all 0.3s;
+            caret-color: var(--green);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: rgba(0, 255, 65, 0.4);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.08);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #333;
+            font-family: var(--font-mono);
+        }
+
+        .form-textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 12px;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border: 1px solid var(--green);
+            background: transparent;
+            color: var(--green);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--green);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .form-submit:hover {
+            color: #000;
+            box-shadow: 0 0 30px var(--green-glow);
+        }
+
+        .form-submit:hover::before {
+            left: 0;
+        }
+
+        .form-success {
+            display: none;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 1rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--green);
+            margin-top: 1rem;
+        }
+
+        /* Map / Domain display */
+        .domain-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .domain-text {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
+            letter-spacing: 3px;
+        }
+
+        .domain-sub {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 800px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ABHILASH</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="study.html">Study</a></li>
+                <li><a href="certifications.html">Certs</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="page-hero">
+            <p class="section-label">// ping abhilash@portfolio</p>
+            <h1>CONTACT <span class="text-dim">//</span></h1>
+            <p style="font-family:var(--font-mono);color:var(--text-dim);font-size:0.85rem;">Open to security collaborations,
+                internships, and CTF-style challenges.</p>
+        </div>
+
+        <div class="section" style="padding-top:0;">
+            <div class="contact-layout">
+
+                <!-- LEFT: Contact Info -->
+                <div>
+                    <div class="section-header" data-anim style="text-align:left;margin-bottom:1.5rem;">
+                        <p class="section-label">// cat contact.txt</p>
+                    </div>
+
+                    <div class="contact-info-card" data-anim data-delay="100">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <div class="contact-label">EMAIL</div>
+                            <div class="contact-value">
+                                <a href="mailto:abhilashbpd1234@gmail.com">abhilashbpd1234@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card" data-anim data-delay="200">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <div class="contact-label">PHONE / WHATSAPP</div>
+                            <div class="contact-value">
+                                <a href="tel:+918260349917">+91 8260349917</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card" data-anim data-delay="300">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <div class="contact-label">WEBSITE</div>
+                            <div class="contact-value">
+                                <a href="https://abhilashkar.tech" target="_blank">abhilashkar.tech</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card" data-anim data-delay="400">
+                        <div class="contact-icon">🎓</div>
+                        <div>
+                            <div class="contact-label">EDUCATION</div>
+                            <div class="contact-value">B.Tech — Computer Science Engineering</div>
+                        </div>
+                    </div>
+
+                    <!-- Domain card -->
+                    <div class="domain-card" data-anim data-delay="500">
+                        <div class="domain-text">abhilashkar.tech</div>
+                        <div class="domain-sub">Self-hosted · Nginx · SSL · Custom DNS</div>
+                        <div style="margin-top:1rem;">
+                            <span class="badge badge-green"><span class="badge-dot"></span>ONLINE</span>
+                        </div>
+                    </div>
+
+                    <!-- Terminal showcase: contact -->
+                    <div class="terminal-wrapper mt-3" data-anim data-delay="600">
+                        <div class="terminal" id="contact-terminal">
+                            <div class="terminal-bar">
+                                <div class="terminal-dots">
+                                    <div class="terminal-dot red"></div>
+                                    <div class="terminal-dot yellow"></div>
+                                    <div class="terminal-dot green"></div>
+                                </div>
+                                <span class="terminal-title">contact.sh</span>
+                            </div>
+                            <div class="terminal-body" style="min-height:150px; max-height:200px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Contact Form -->
+                <div data-anim data-delay="200">
+                    <div class="contact-form">
+                        <div class="form-title">SEND A MESSAGE</div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="name">NAME</label>
+                            <input type="text" id="name" class="form-input" placeholder="your name..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">EMAIL</label>
+                            <input type="email" id="email" class="form-input" placeholder="your@email.com" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="subject">SUBJECT</label>
+                            <input type="text" id="subject" class="form-input"
+                                placeholder="collaboration / internship / hacking..." />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="message">MESSAGE</label>
+                            <textarea id="message" class="form-textarea"
+                                placeholder="Type your message here..."></textarea>
+                        </div>
+
+                        <button class="form-submit" id="form-submit" onclick="handleSubmit()">
+                            SEND MESSAGE [ENTER]
+                        </button>
+
+                        <div class="form-success" id="form-success">
+                            <p style="font-size:1rem; margin-bottom:0.3rem;">✓ MESSAGE SENT SUCCESSFULLY</p>
+                            <p style="color:var(--text-dim);">I'll get back to you within 24–48 hours.</p>
+                        </div>
+                    </div>
+
+                    <!-- What I'm open to -->
+                    <div class="card mt-2" data-anim data-delay="400">
+                        <p class="section-label" style="margin-bottom:1rem;">// OPEN TO</p>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> Cybersecurity Internship
+                            </div>
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> CTF Team Collaboration
+                            </div>
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> DevOps / SysAdmin Roles
+                            </div>
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> Open Source Projects
+                            </div>
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> Bug Bounty Teams
+                            </div>
+                            <div style="font-family:var(--font-mono);font-size:0.78rem;color:var(--text-dim);">
+                                <span class="text-green">✓</span> Research Collaboration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-logo">ABHILASH.PORTFOLIO</span>
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="certifications.html">Certs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <p>© 2026 Abhilash · abhilashkar.tech · Built with HTML, CSS, JS & Three.js</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/terminal.js"></script>
+    <script>
+        // Auto-run terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            new HackerTerminal('contact-terminal', {
+                typingSpeed: 35,
+                autoRun: [
+                    {
+                        delay: 600, cmd: 'cat contact.txt', output: [
+                            { class: 't-output', text: 'Name  : Abhilash' },
+                            { class: 't-output', text: 'Email : abhilashbpd1234@gmail.com' },
+                            { class: 't-output', text: 'Phone : +91 8260349917' },
+                            { class: 't-output', text: 'Web   : abhilashkar.tech' },
+                        ]
+                    },
+                    {
+                        delay: 400, cmd: 'ping abhilashkar.tech', output: [
+                            { class: 't-success', text: '64 bytes: icmp_seq=1 ttl=57 time=24.3ms' },
+                            { class: 't-success', text: '64 bytes: icmp_seq=2 ttl=57 time=23.8ms' },
+                            { class: 't-success', text: '--- 0% packet loss --- ONLINE ✓' },
+                        ]
+                    },
+                ]
+            });
+        });
+
+        // Anim
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    setTimeout(() => {
+                        e.target.style.opacity = '1';
+                        e.target.style.transform = 'translateY(0)';
+                    }, e.target.dataset.delay || 0);
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-anim]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            obs.observe(el);
+        });
+
+        function handleSubmit() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const msg = document.getElementById('message').value.trim();
+
+            if (!name || !email || !msg) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            document.getElementById('form-submit').disabled = true;
+            document.getElementById('form-submit').textContent = 'SENDING...';
+
+            // Simulate send
+            setTimeout(() => {
+                document.getElementById('form-success').style.display = 'block';
+                document.getElementById('form-submit').textContent = '✓ SENT';
+                document.getElementById('form-submit').style.color = '#000';
+                document.getElementById('form-submit').style.background = 'var(--green)';
+            }, 1500);
+        }
+    </script>
+<script src="js/effects.js"></script>
+</body>
+
+</html>

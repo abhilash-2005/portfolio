@@ -1,0 +1,462 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills | Abhilash Portfolio</title>
+    <meta name="description"
+        content="Skill tree of Abhilash — System Administration, Networking, Cybersecurity, Web Development, Programming, and Embedded IoT." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+    <style>
+        /* ===== SKILLS PAGE ===== */
+        .skills-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+        }
+
+        .skill-category-card.color-green::after {
+            background: linear-gradient(90deg, var(--green), transparent);
+        }
+
+        .skill-category-card.color-cyan::after {
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        .skill-category-card.color-red::after {
+            background: linear-gradient(90deg, var(--red), transparent);
+        }
+
+        .skill-category-card.color-yellow::after {
+            background: linear-gradient(90deg, var(--yellow), transparent);
+        }
+
+        .skill-category-card.color-purple::after {
+            background: linear-gradient(90deg, var(--purple), transparent);
+        }
+
+        .skill-category-card.color-orange::after {
+            background: linear-gradient(90deg, var(--orange), transparent);
+        }
+
+        .skill-category-card:hover {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .skill-cat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-cat-icon {
+            font-size: 1.8rem;
+        }
+
+        .skill-cat-title {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--green);
+            letter-spacing: 2px;
+        }
+
+        .color-cyan .skill-cat-title {
+            color: var(--cyan);
+        }
+
+        .color-red .skill-cat-title {
+            color: var(--red);
+        }
+
+        .color-yellow .skill-cat-title {
+            color: var(--yellow);
+        }
+
+        .color-purple .skill-cat-title {
+            color: var(--purple);
+        }
+
+        .color-orange .skill-cat-title {
+            color: var(--orange);
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .skill-name {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .skill-pct {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+
+        .color-green .skill-pct {
+            color: var(--green);
+        }
+
+        .color-cyan .skill-pct {
+            color: var(--cyan);
+        }
+
+        .color-red .skill-pct {
+            color: var(--red);
+        }
+
+        .color-yellow .skill-pct {
+            color: var(--yellow);
+        }
+
+        .color-purple .skill-pct {
+            color: var(--purple);
+        }
+
+        .color-orange .skill-pct {
+            color: var(--orange);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: #1c1c1c;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            width: 0;
+            transition: width 1.5s ease;
+        }
+
+        .color-green .progress-fill {
+            background: linear-gradient(90deg, var(--green), #00cc66);
+            box-shadow: 0 0 8px var(--green-glow);
+        }
+
+        .color-cyan .progress-fill {
+            background: linear-gradient(90deg, var(--cyan), #00aacc);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+        }
+
+        .color-red .progress-fill {
+            background: linear-gradient(90deg, var(--red), #cc0033);
+            box-shadow: 0 0 8px rgba(255, 0, 60, 0.4);
+        }
+
+        .color-yellow .progress-fill {
+            background: linear-gradient(90deg, var(--yellow), #cccc00);
+            box-shadow: 0 0 8px rgba(255, 255, 0, 0.4);
+        }
+
+        .color-purple .progress-fill {
+            background: linear-gradient(90deg, var(--purple), #6600cc);
+            box-shadow: 0 0 8px rgba(157, 0, 255, 0.4);
+        }
+
+        .color-orange .progress-fill {
+            background: linear-gradient(90deg, var(--orange), #cc4400);
+            box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+        }
+
+        /* Career identity */
+        .career-identity {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .career-identity::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--green), var(--cyan), var(--green), transparent);
+        }
+
+        .career-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .career-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Fields grid */
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .field-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .field-chip:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .field-chip-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .field-chip-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .fields-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fields-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Terminal section */
+        .skills-terminal-section {
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ABHILASH</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="skills.html" class="active">Skills</a></li>
+                <li><a href="study.html">Study</a></li>
+                <li><a href="certifications.html">Certs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="page-hero">
+            <p class="section-label">// cat skills/all.json</p>
+            <h1>SKILL TREE <span class="text-dim">//</span></h1>
+            <p style="font-family:var(--font-mono);color:var(--text-dim);font-size:0.85rem;">Hidden skills, now mapped. Experience across five career fields.</p>
+        </div>
+
+        <div class="section" style="padding-top:0;">
+            <!-- Career Identity -->
+            <div class="career-identity" data-anim>
+                <h2 class="career-title">
+                    <span class="text-green">More than a classroom learner.</span>
+                </h2>
+                <p class="career-subtitle">Experience across five fields pulls you closer to a <span
+                        class="text-cyan">DevSecOps Engineer</span> than a typical CSE student.</p>
+            </div>
+
+            <!-- 5 Fields -->
+            <div class="fields-grid" data-anim>
+                <div class="field-chip"><span class="field-chip-icon">🖥️</span><span class="field-chip-label">SYSTEM
+                        ADMIN</span></div>
+                <div class="field-chip"><span class="field-chip-icon">📡</span><span
+                        class="field-chip-label">NETWORKING</span></div>
+                <div class="field-chip"><span class="field-chip-icon">🔐</span><span
+                        class="field-chip-label">CYBERSECURITY</span></div>
+                <div class="field-chip"><span class="field-chip-icon">🌐</span><span class="field-chip-label">WEB
+                        DEV</span></div>
+                <div class="field-chip"><span class="field-chip-icon">🔧</span><span
+                        class="field-chip-label">EMBEDDED/IOT</span></div>
+            </div>
+
+            <!-- Skills Grid -->
+            <div class="section-header" data-anim>
+                <p class="section-label">// skill_tree --verbose</p>
+                <h2 class="section-title">SKILLS BY TECHNOLOGY</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="skills-overview" id="skills-grid"></div>
+
+            <!-- Skills Terminal -->
+            <div class="skills-terminal-section">
+                <div class="section-header" data-anim>
+                    <p class="section-label">// terminal --interactive</p>
+                    <h2 class="section-title">SKILL TERMINAL</h2>
+                    <div class="section-line"></div>
+                    <p class="section-subtitle">Type <span class="text-green">skills</span> or <span
+                            class="text-green">status</span> in the terminal below</p>
+                </div>
+                <div class="terminal-wrapper" data-anim>
+                    <div class="terminal" id="skills-terminal">
+                        <div class="terminal-bar">
+                            <div class="terminal-dots">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <span class="terminal-title">skill_analyzer.sh — bash</span>
+                            <span class="terminal-status">● LIVE</span>
+                        </div>
+                        <div class="terminal-body terminal-full"></div>
+                        <div class="terminal-input-line" style="padding:0.5rem 1.5rem 1rem;">
+                            <span class="terminal-prompt-label">abhilash@portfolio:~$ </span>
+                            <input type="text" class="terminal-input" placeholder="type: skills / status / help"
+                                autocomplete="off" spellcheck="false" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-logo">ABHILASH.PORTFOLIO</span>
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <p>© 2026 Abhilash · abhilashkar.tech</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/terminal.js"></script>
+    <script>
+        // Build skills grid
+        const grid = document.getElementById('skills-grid');
+        PORTFOLIO_DATA.skills.forEach((cat, i) => {
+            const card = document.createElement('div');
+            card.className = `skill-category-card color-${cat.color}`;
+            card.dataset.anim = '';
+            card.dataset.delay = i * 100;
+
+            card.innerHTML = `
+    <div class="skill-cat-header">
+      <span class="skill-cat-icon">${cat.icon}</span>
+      <span class="skill-cat-title">${cat.category.toUpperCase()}</span>
+    </div>
+    ${cat.items.map(item => `
+      <div class="skill-item">
+        <div class="skill-row">
+          <span class="skill-name">${item.name}</span>
+          <span class="skill-pct">${item.level}%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="${item.level}"></div>
+        </div>
+      </div>
+    `).join('')}
+  `;
+            grid.appendChild(card);
+        });
+
+        // Intersection observer for progress bars
+        const progObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.width + '%';
+                    });
+                    progObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.skill-category-card').forEach(c => progObserver.observe(c));
+
+        // Anim observer
+        const animObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, delay);
+                    animObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-anim]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            animObs.observe(el);
+        });
+
+        // Interactive terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            const t = new HackerTerminal('skills-terminal', {
+                interactive: true,
+                autoRun: [
+                    { delay: 500, cmd: 'skills', output: [] },
+                ]
+            });
+            setTimeout(() => t._cmdSkills(), 1200);
+        });
+    </script>
+<script src="js/effects.js"></script>
+</body>
+
+</html>

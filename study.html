@@ -1,0 +1,561 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Roadmap | Abhilash Portfolio</title>
+    <meta name="description" content="Abhilash's cybersecurity and DevSecOps study roadmap with timeline format." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+    <style>
+        .study-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2.6rem;
+            align-items: stretch;
+        }
+
+        /* Main career path */
+        .career-track {
+            position: sticky;
+            top: 80px;
+        }
+
+        .career-path {
+            background: linear-gradient(180deg, #111 0%, #0b0b0b 100%);
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(0, 255, 65, 0.05);
+        }
+
+        .career-path-title {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .career-path-title::before {
+            content: '» ';
+            color: var(--green);
+        }
+
+        .path-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.01);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .path-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .path-num {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--green);
+            opacity: 0.4;
+            line-height: 1;
+            flex-shrink: 0;
+            width: 30px;
+        }
+
+        .path-name {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 0.3rem;
+        }
+
+        .path-items {
+            font-family: var(--font-body);
+            font-size: 0.84rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            list-style: none;
+            margin-top: 0.4rem;
+        }
+
+        .path-items li::before {
+            content: '▸ ';
+            color: var(--green-dim);
+        }
+
+        /* 30 day goals */
+        .goals-30 {
+            background: linear-gradient(135deg, rgba(0, 255, 65, 0.08), rgba(0, 255, 65, 0.02));
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 1.2rem;
+            margin-top: 1.2rem;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 255, 65, 0.08);
+        }
+
+        .goals-30-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--yellow);
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .goal-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+        }
+
+        .goal-num {
+            font-family: var(--font-display);
+            color: var(--green);
+            font-size: 0.9rem;
+            width: 20px;
+            flex-shrink: 0;
+        }
+
+        .goal-text {
+            color: var(--text-dim);
+        }
+
+        /* Timeline */
+        .study-timeline {
+            position: relative;
+        }
+
+        #timeline-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .timeline-phase {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-phase::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 12px;
+            bottom: -16px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--green), transparent);
+            box-shadow: 0 0 8px var(--green-glow);
+        }
+
+        .timeline-phase:last-child::before {
+            display: none;
+        }
+
+        .phase-dot {
+            position: absolute;
+            left: 18px;
+            top: 2px;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px var(--green-glow);
+        }
+
+        .phase-dot.active {
+            background: var(--green);
+        }
+
+        .phase-dot.active::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #000;
+        }
+
+        .phase-dot::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .phase-dot.upcoming {
+            border-color: #444;
+            box-shadow: none;
+        }
+
+        .phase-dot.upcoming::after {
+            background: #444;
+        }
+
+        .phase-dot.planned {
+            border-color: #333;
+            box-shadow: none;
+        }
+
+        .phase-dot.planned::after {
+            background: #333;
+        }
+
+        .phase-period {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--green);
+            letter-spacing: 2px;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .phase-period.upcoming {
+            color: #555;
+        }
+
+        .phase-period.planned {
+            color: #444;
+        }
+
+        .phase-card {
+            background: linear-gradient(145deg, rgba(0, 255, 65, 0.04), rgba(0, 255, 65, 0.0));
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--green);
+            padding: 1.2rem;
+            transition: all 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .phase-card.upcoming {
+            border-left-color: #444;
+        }
+
+        .phase-card.planned {
+            border-left-color: #333;
+            opacity: 0.7;
+        }
+
+        .phase-card:hover {
+            border-left-color: var(--cyan);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.12);
+            transform: translateX(4px);
+        }
+
+        .phase-name {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--green);
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .phase-card.upcoming .phase-name {
+            color: #666;
+        }
+
+        .phase-card.planned .phase-name {
+            color: #555;
+        }
+
+        .phase-tasks {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 0.5rem 0.75rem;
+        }
+
+        .phase-tasks li {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            padding: 4px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .phase-tasks li::before {
+            content: '→ ';
+            color: var(--green-dim);
+            flex-shrink: 0;
+        }
+
+        .phase-card.upcoming .phase-tasks li::before {
+            color: #444;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            margin-left: 8px;
+        }
+
+        .pill-active {
+            background: rgba(0, 255, 65, 0.15);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            color: var(--green);
+        }
+
+        .pill-upcoming {
+            background: rgba(100, 100, 100, 0.1);
+            border: 1px solid #333;
+            color: #555;
+        }
+
+        .pill-planned {
+            background: rgba(80, 80, 80, 0.1);
+            border: 1px solid #222;
+            color: #444;
+        }
+
+        @media (max-width: 900px) {
+            .study-layout {
+                grid-template-columns: 1fr;
+                gap: 1.6rem;
+            }
+
+            .career-track {
+                position: static;
+            }
+
+            .timeline-phase {
+                padding-left: 64px;
+            }
+
+            .phase-card {
+                border-left-width: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ABHILASH</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="study.html" class="active">Study</a></li>
+                <li><a href="certifications.html">Certs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="page-hero">
+            <p class="section-label">// cat study_plan.md</p>
+            <h1>STUDY ROADMAP <span class="text-dim">//</span></h1>
+            <p style="font-family:var(--font-mono);color:var(--text-dim);font-size:0.85rem;">Structured learning path toward Ethical Hacker / DevSecOps roles.</p>
+        </div>
+
+        <div class="section" style="padding-top:0;">
+            <div class="study-layout">
+                <!-- LEFT: Career Track -->
+                <div class="career-track">
+                        <div class="career-path" data-anim>
+                        <div class="career-path-title">CORE CAREER PATH</div>
+
+                        <div class="path-step">
+                            <div class="path-num">01</div>
+                            <div class="path-content">
+                                <div class="path-name">🧠 CYBERSECURITY</div>
+                                <ul class="path-items">
+                                    <li>Networking Fundamentals (TCP/IP, Routing, NAT, Firewalls)</li>
+                                    <li>Linux Security & Server Hardening (Critical for offensive ops)</li>
+                                    <li>Web Application Penetration Testing (OWASP Top 10)</li>
+                                    <li>Exploitation: SQLi, XSS, SSRF, Auth Bypass</li>
+                                    <li>Industry Tools: Nmap, Burp Suite Pro, Metasploit Framework</li>
+                                    <li>Reverse Engineering & Malware Analysis (Advanced Stage)</li>
+                                    <li><strong style="color:var(--cyan);">Daily Commitment: 2 hours minimum</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="path-step">
+                            <div class="path-num">02</div>
+                            <div class="path-content">
+                                <div class="path-name">🐧 LINUX MASTERY</div>
+                                <ul class="path-items">
+                                    <li>Advanced File Permissions, ACLs & Privilege Escalation Vectors</li>
+                                    <li>Secure SSH Configuration & Public Key Infrastructure (PKI)</li>
+                                    <li>Automated Tasks with Cron Jobs & Bash Scripting</li>
+                                    <li>Network Filtering via iptables / ufw</li>
+                                    <li>Systemd Services & Process Anomalies Detection</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="path-step">
+                            <div class="path-num">03</div>
+                            <div class="path-content">
+                                <div class="path-name">🌐 PROGRAMMING LOGIC</div>
+                                <ul class="path-items">
+                                    <li>Python (Primary language for offensive tools & exploit dev)</li>
+                                    <li>Automating reconnaissance and custom vulnerability scanners</li>
+                                    <li>JavaScript / Node.js (Understanding web app logic & XSS vectors)</li>
+                                    <li>⚠️ Focus on deep language mastery over knowing multiple syntaxes</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="path-step">
+                            <div class="path-num">04</div>
+                            <div class="path-content">
+                                <div class="path-name">📡 NETWORKING & INFRASTRUCTURE</div>
+                                <ul class="path-items">
+                                    <li>Deep Dive into DHCP, DNS configurations, and Subnetting</li>
+                                    <li>Packet flow analysis and Port scanning methodologies</li>
+                                    <li>From practical DNS setups to deeper protocol understanding</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="path-step">
+                            <div class="path-num">05</div>
+                            <div class="path-content">
+                                <div class="path-name">🤖 AI & AUTOMATION</div>
+                                <ul class="path-items">
+                                    <li>REST API integrations and Webhooks</li>
+                                    <li>Large Language Model (LLM) Prompt Engineering for Recon</li>
+                                    <li>Building intelligent automation scripts for threat intelligence</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 30 Day Goals -->
+                    <div class="goals-30" data-anim data-delay="200">
+                        <div class="goals-30-title">⚡ NEXT 30 DAYS GOAL</div>
+                        <div class="goal-item">
+                            <span class="goal-num">1️⃣</span>
+                            <span class="goal-text">Finish Web Chat Application</span>
+                        </div>
+                        <div class="goal-item">
+                            <span class="goal-num">2️⃣</span>
+                            <span class="goal-text">Build Python Port Scanner</span>
+                        </div>
+                        <div class="goal-item">
+                            <span class="goal-num">3️⃣</span>
+                            <span class="goal-text">Make Vulnerable Login Website</span>
+                        </div>
+                        <div
+                            style="margin-top:0.8rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--green);">
+                            Then → Start Bug Bounty Learning 🎯
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Timeline -->
+                <div class="study-timeline">
+                    <div class="section-header" data-anim style="text-align:left; margin-bottom:2rem;">
+                        <p class="section-label">// timeline --phases</p>
+                        <h2 class="section-title" style="font-size:1.3rem;">STUDY PHASES</h2>
+                        <div class="section-line" style="margin:0.5rem 0;"></div>
+                    </div>
+                    <div id="timeline-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-logo">ABHILASH.PORTFOLIO</span>
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="study.html">Study</a></li>
+            <li><a href="certifications.html">Certs</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <p>© 2026 Abhilash · abhilashkar.tech</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/terminal.js"></script>
+    <script>
+        const container = document.getElementById('timeline-container');
+        PORTFOLIO_DATA.studyPlan.forEach((phase, i) => {
+            const stat = phase.status;
+            const cardCls = stat === 'active' ? '' : stat === 'upcoming' ? 'upcoming' : 'planned';
+            const dotCls = stat;
+            const pillCls = stat === 'active' ? 'pill-active' : stat === 'upcoming' ? 'pill-upcoming' : 'pill-planned';
+            const pillText = stat === 'active' ? '● ACTIVE' : stat === 'upcoming' ? '○ UPCOMING' : '◌ PLANNED';
+
+            const div = document.createElement('div');
+            div.className = 'timeline-phase';
+            div.dataset.anim = '';
+            div.dataset.delay = i * 150;
+            div.innerHTML = `
+                <div class="phase-dot ${dotCls}"></div>
+                <div class="phase-period ${cardCls}">${phase.period}</div>
+                <div class="phase-card ${cardCls}">
+                    <div class="phase-name">
+                        ${phase.phase}
+                        <span class="status-pill ${pillCls}">${pillText}</span>
+                    </div>
+                    <ul class="phase-tasks">
+                        ${phase.tasks.map(t => \`<li>\${t}</li>\`).join('')}
+                    </ul>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, delay);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('[data-anim]').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            obs.observe(el);
+        });
+    </script>
+    <script src="js/effects.js"></script>
+</body>
+
+</html>

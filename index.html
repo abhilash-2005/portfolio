@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abhilash | DevSecOps Portfolio</title>
+  <meta name="description"
+    content="Portfolio of Abhilash — B.Tech CSE student specializing in System Administration, Networking, Cybersecurity, and Web Development." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/terminal.css" />
+  <style>
+    /* ===== HERO SECTION ===== */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding: 0 2rem;
+      padding-top: 65px;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1200px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .hero-greeting {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--green-dim);
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-greeting::before {
+      content: '> ';
+      color: var(--green);
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      color: var(--green);
+      letter-spacing: 4px;
+      text-shadow: 0 0 40px var(--green-glow), 0 0 80px rgba(0, 255, 65, 0.2);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-role {
+      font-family: var(--font-mono);
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      color: var(--cyan);
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-role span {
+      color: var(--green);
+    }
+
+    .hero-bio {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      max-width: 480px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--green);
+      text-shadow: 0 0 20px var(--green-glow);
+      display: block;
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Matrix rain decoration */
+    .matrix-col {
+      position: absolute;
+      top: 0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--green-dim);
+      opacity: 0.06;
+      writing-mode: vertical-lr;
+      user-select: none;
+      animation: matrixFall linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes matrixFall {
+      from {
+        transform: translateY(-100%);
+      }
+
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    /* Status bar */
+    .status-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.9);
+      border-top: 1px solid rgba(0, 255, 65, 0.2);
+      padding: 6px 2rem;
+      display: flex;
+      gap: 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      z-index: 999;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-dot.online {
+      background: var(--green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    /* Sections below hero */
+    .section-dark {
+      position: relative;
+      z-index: 1;
+      background: rgba(10, 10, 10, 0.97);
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 0 30px rgba(0, 255, 65, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--green);
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .hero-terminal-section {
+        display: none;
+      }
+
+      .hero-name {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+  <div id="boot-screen">
+    <div class="boot-line">INIT BIOS... OK</div>
+    <div class="boot-line">LOADING SYSTEM KERNEL... <span class="success">[OK]</span></div>
+    <div class="boot-line">MOUNTING VIRTUAL FILESYSTEM... <span class="success">[OK]</span></div>
+    <div class="boot-line">ESTABLISHING SECURE CONNECTION... <span class="success">[OK]</span></div>
+    <div class="boot-line">WARM-BOOTING UI...</div>
+    <div class="boot-line">ACCESSING PORTFOLIO DATA... <span class="success">GRANTED</span></div>
+  </div>
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">ABHILASH</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="study.html">Study</a></li>
+        <li><a href="certifications.html">Certs</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text" data-anim>
+        <p class="hero-greeting">SYSTEM INITIALIZED // READY</p>
+        <h1 class="hero-name glitch" data-text="ABHILASH">ABHILASH</h1>
+        <p class="hero-role">
+          B.Tech CSE &mdash; <span id="typed-role"></span><span class="cursor"></span>
+        </p>
+        <p class="hero-bio">
+          Builder-first CSE student. I deploy and harden servers, break things ethically to learn,
+          automate with code, and bridge DevOps with security. Portfolio: <span class="text-green">abhilashkar.tech</span>
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">5+</span>
+            <span class="stat-label">Completed Builds</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4</span>
+            <span class="stat-label">Active Tracks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Tech Domains</span>
+          </div>
+        </div>
+        <div class="hero-btns">
+          <a href="projects.html" class="btn">View Projects</a>
+          <a href="contact.html" class="btn btn-outline-cyan">Contact Me</a>
+        </div>
+      </div>
+
+      <!-- Hero Terminal -->
+      <div class="hero-terminal-section">
+        <div class="terminal-wrapper">
+          <div class="terminal" id="hero-terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dots">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+              </div>
+              <span class="terminal-title">abhilash@portfolio:~</span>
+              <span class="terminal-status">● ONLINE</span>
+            </div>
+            <div class="terminal-body">
+              <div class="t-scan-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT/QUICK INFO ===== -->
+  <section class="section-dark">
+    <div class="section" style="padding-top:4rem; padding-bottom:4rem;">
+      <div class="section-header" data-anim>
+        <p class="section-label">// system.whoami</p>
+        <h2 class="section-title">QUICK PROFILE</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-anim data-delay="100">
+          <span class="feature-icon">🖥</span>
+          <h3 class="feature-title">SYSTEM ADMIN</h3>
+          <p class="feature-desc">Self-hosted VPS stack: Nginx, reverse proxy, SSL, DNS, and load balancing — hands-on work that mirrors a junior SysAdmin role.</p>
+        </div>
+        <div class="feature-card" data-anim data-delay="200">
+          <span class="feature-icon">🔐</span>
+          <h3 class="feature-title">NETWORK SECURITY</h3>
+          <p class="feature-desc">WireGuard VPN in production, packet capture with Wireshark, and a personal Azure penetration-testing lab to practice safely.</p>
+        </div>
+        <div class="feature-card" data-anim data-delay="300">
+          <span class="feature-icon">💻</span>
+          <h3 class="feature-title">WEB DEV</h3>
+          <p class="feature-desc">WordPress deployment, domain management, a real-time chat app, and this portfolio — shipped and hosted on my own infra.</p>
+        </div>
+        <div class="feature-card" data-anim data-delay="400">
+          <span class="feature-icon">🤖</span>
+          <h3 class="feature-title">AI & AUTOMATION</h3>
+          <p class="feature-desc">WhatsApp AI auto-reply bot on my Windows server; automation-first mindset aimed at final-year project depth.</p>
+        </div>
+        <div class="feature-card" data-anim data-delay="500">
+          <span class="feature-icon">🔧</span>
+          <h3 class="feature-title">EMBEDDED / IOT</h3>
+          <p class="feature-desc">ESP8266 programming, IoT WiFi modules, and wireless protocols — building hardware awareness alongside software.</p>
+        </div>
+        <div class="feature-card" data-anim data-delay="600">
+          <span class="feature-icon">🎮</span>
+          <h3 class="feature-title">REVERSE ENGINEERING</h3>
+          <p class="feature-desc">Unity/GameMaker binary analysis, asset extraction, and file-structure forensics for curiosity-driven learning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATUS BAR ===== -->
+  <div class="status-bar">
+    <div class="status-item">
+      <div class="status-dot online"></div>
+      <span>STATUS: ONLINE</span>
+    </div>
+    <div class="status-item">
+      <span>DOMAIN: abhilashkar.tech</span>
+    </div>
+    <div class="status-item">
+      <span>FIELD: DevSecOps · Cybersecurity</span>
+    </div>
+    <div class="status-item" id="clock-bar"></div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <span class="footer-logo">ABHILASH.PORTFOLIO</span>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="study.html">Study</a></li>
+      <li><a href="certifications.html">Certs</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>© 2026 Abhilash · abhilashkar.tech · Building real things, one server at a time.</p>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/three-bg.js"></script>
+  <script src="js/effects.js"></script>
+  <script>
+    // Typewriter role
+    const roles = [
+      'System Administrator',
+      'Network Engineer',
+      'Ethical Hacker',
+      'Web Developer',
+      'IoT Enthusiast',
+      'DevSecOps Learner',
+    ];
+    let roleIdx = 0, charIdx = 0, deleting = false;
+    const typedEl = document.getElementById('typed-role');
+
+    function typeRole() {
+      const current = roles[roleIdx];
+      if (!deleting) {
+        typedEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.length) { deleting = true; setTimeout(typeRole, 2000); return; }
+      } else {
+        typedEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+        if (charIdx === 0) { deleting = false; roleIdx = (roleIdx + 1) % roles.length; }
+      }
+      setTimeout(typeRole, deleting ? 60 : 90);
+    }
+    typeRole();
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock-bar').textContent =
+        'LOCAL TIME: ' + now.toLocaleTimeString('en-IN', { hour12: false });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Initialize hero terminal with auto-run sequence
+    document.addEventListener('DOMContentLoaded', () => {
+      const terminal = new HackerTerminal('hero-terminal', {
+        typingSpeed: 30,
+        autoRun: [
+          {
+            delay: 800, cmd: 'whoami', output: [
+              { class: 't-success', text: '┌── USER PROFILE ──────────────────────' },
+              { class: 't-success', text: '│ Abhilash · B.Tech CSE' },
+              { class: 't-info', text: '│ Track: DevSecOps (hands-on)' },
+              { class: 't-output', text: '│ Domain: abhilashkar.tech' },
+              { class: 't-warning', text: '│ Status: shipping + hardening builds' },
+              { class: 't-success', text: '└──────────────────────────────────────' },
+            ]
+          },
+          {
+            delay: 600, cmd: 'ls projects/', output: [
+              { class: 't-output', text: '<span class="t-success">custom-domain/</span>  <span class="t-success">wireguard-vpn/</span>  <span class="t-success">wireshark-lab/</span>' },
+              { class: 't-output', text: '<span class="t-warning">whatsapp-ai-bot/</span>  <span class="t-warning">chat-app/</span>  <span class="t-warning">pentest-lab/</span>' },
+              { class: 't-output', text: '<span class="t-info">port-scanner/</span>  <span class="t-info">vuln-webapp/</span>' },
+            ]
+          },
+          {
+            delay: 400, cmd: 'status --career', output: [
+              { class: 't-success', text: '[✓] 5+ completed real-world projects' },
+              { class: 't-warning', text: '[⟳] 4 ongoing advanced projects' },
+              { class: 't-info', text: '[◉] Target: Ethical Hacker / DevSecOps' },
+              { class: 't-output', text: '' },
+              { class: 't-highlight', text: '>>> You are closer to junior professional than a student <<<' },
+            ]
+          },
+        ]
+      });
+    });
+  </script>
+</body>
+
+</html>

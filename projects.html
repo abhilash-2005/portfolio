@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Abhilash Portfolio</title>
+    <meta name="description"
+        content="All projects by Abhilash — Server Setup, VPN, Cybersecurity Lab, WhatsApp AI Bot, and more." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/terminal.css" />
+    <style>
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-btn {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--green);
+            color: var(--green);
+            background: var(--green-dark);
+        }
+
+        .projects-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover,
+        .project-card.selected {
+            border-color: var(--border-glow);
+            box-shadow: 0 0 25px rgba(0, 255, 65, 0.1);
+        }
+
+        .project-card.selected {
+            border-left: 3px solid var(--green);
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-icon {
+            font-size: 1.4rem;
+        }
+
+        .card-name {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--green);
+            letter-spacing: 2px;
+            flex: 1;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        /* Detail pane */
+        .detail-pane {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .detail-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            border: 1px dashed var(--border);
+            color: var(--text-dim);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .detail-content {
+            display: none;
+        }
+
+        .detail-content.active {
+            display: block;
+        }
+
+        .detail-title {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--green);
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--green-dim);
+            letter-spacing: 2px;
+            margin: 1rem 0 0.4rem;
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .detail-list li::before {
+            content: '→ ';
+            color: var(--green);
+        }
+
+        .detail-terminal-wrap {
+            margin-top: 1rem;
+        }
+
+        /* Stats strip */
+        .proj-stats-strip {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .proj-stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1rem 2rem;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .proj-stat-num {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--green);
+            text-shadow: 0 0 20px var(--green-glow);
+        }
+
+        .proj-stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .projects-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-pane {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise"></div>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ABHILASH</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="study.html">Study</a></li>
+                <li><a href="certifications.html">Certs</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+        </div>
+    </nav>
+
+    <div class="page-wrapper">
+        <div class="page-hero">
+            <p class="section-label">// ls -la ~/projects</p>
+            <h1>PROJECTS <span class="text-dim">//</span></h1>
+            <p style="font-family:var(--font-mono);color:var(--text-dim);font-size:0.85rem;">Built and deployed by me—no tutorial clones.</p>
+        </div>
+
+        <div class="section" style="padding-top:0;">
+            <!-- Stats -->
+            <div class="proj-stats-strip" data-anim>
+                <div class="proj-stat">
+                    <div class="proj-stat-num">5</div>
+                    <div class="proj-stat-label">COMPLETED BUILDS</div>
+                </div>
+                <div class="proj-stat">
+                    <div class="proj-stat-num">4</div>
+                    <div class="proj-stat-label">ACTIVE BUILDS</div>
+                </div>
+                <div class="proj-stat">
+                    <div class="proj-stat-num">4+</div>
+                    <div class="proj-stat-label">PLANNED NEXT</div>
+                </div>
+                <div class="proj-stat">
+                    <div class="proj-stat-num">5</div>
+                    <div class="proj-stat-label">TECH DOMAINS</div>
+                </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">ALL</button>
+                <button class="filter-btn" data-filter="done">✓ COMPLETED</button>
+                <button class="filter-btn" data-filter="ongoing">⟳ ONGOING</button>
+                <button class="filter-btn" data-filter="upcoming">◦ UPCOMING</button>
+                <button class="filter-btn" data-filter="server">SERVER</button>
+                <button class="filter-btn" data-filter="security">SECURITY</button>
+                <button class="filter-btn" data-filter="web">WEB</button>
+                <button class="filter-btn" data-filter="ai">AI</button>
+                <button class="filter-btn" data-filter="embedded">EMBEDDED</button>
+            </div>
+
+            <!-- Projects Layout -->
+            <div class="projects-layout">
+                <!-- Left: Project List -->
+                <div id="projects-list"></div>
+
+                <!-- Right: Detail + Terminal -->
+                <div class="detail-pane">
+                    <div id="detail-empty" class="detail-empty">
+                        <div>
+                            <p>SELECT A PROJECT</p>
+                            <br />
+                            <p style="color:var(--border); font-size:0.7rem;">Click any project card to view details and
+                                run it in terminal</p>
+                        </div>
+                    </div>
+                    <div id="detail-content" class="card detail-content">
+                        <div class="badge badge-green mb-2" id="detail-status-badge"><span
+                                class="badge-dot"></span><span id="detail-status-text">DONE</span></div>
+                        <h2 class="detail-title" id="detail-name"></h2>
+                        <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim); margin-bottom:0.5rem;"
+                            id="detail-level"></p>
+                        <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.6;" id="detail-desc"></p>
+
+                        <div class="detail-section-label">// DETAILS</div>
+                        <ul class="detail-list" id="detail-list"></ul>
+
+                        <div class="detail-section-label">// TAGS</div>
+                        <div id="detail-tags" style="display:flex;flex-wrap:wrap;gap:0.4rem; margin-bottom:1rem;"></div>
+
+                        <!-- Mini terminal for this project -->
+                        <div class="detail-terminal-wrap">
+                            <div class="terminal" id="detail-terminal">
+                                <div class="terminal-bar">
+                                    <div class="terminal-dots">
+                                        <div class="terminal-dot red"></div>
+                                        <div class="terminal-dot yellow"></div>
+                                        <div class="terminal-dot green"></div>
+                                    </div>
+                                    <span class="terminal-title" id="detail-term-title">project.sh</span>
+                                </div>
+                                <div class="terminal-body" style="min-height:160px; max-height:200px;"
+                                    id="detail-term-body"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span class="footer-logo">ABHILASH.PORTFOLIO</span>
+        <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <p>© 2026 Abhilash · abhilashkar.tech</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/terminal.js"></script>
+    <script>
+        const list = document.getElementById('projects-list');
+        const detailEmpty = document.getElementById('detail-empty');
+        const detailContent = document.getElementById('detail-content');
+        let currentFilter = 'all';
+        let selectedId = null;
+
+        function statusBadge(status) {
+            if (status === 'done') return { cls: 'badge-green', icon: '✓', text: 'COMPLETED' };
+            if (status === 'ongoing') return { cls: 'badge-yellow', icon: '⟳', text: 'ONGOING' };
+            return { cls: 'badge-blue', icon: '◦', text: 'UPCOMING' };
+        }
+
+        function renderProjects() {
+            list.innerHTML = '';
+            PORTFOLIO_DATA.projects.forEach(p => {
+                const show = currentFilter === 'all' || p.status === currentFilter || p.category === currentFilter;
+                const b = statusBadge(p.status);
+                const card = document.createElement('div');
+                card.className = `project-card ${show ? '' : 'hidden'} ${selectedId === p.id ? 'selected' : ''}`;
+                card.dataset.id = p.id;
+                card.innerHTML = `
+      <div class="card-header">
+        <span class="card-icon">${p.icon}</span>
+        <span class="card-name">${p.name}</span>
+        <span class="badge ${b.cls}"><span class="badge-dot"></span>${b.text}</span>
+      </div>
+      <p class="card-desc">${p.desc}</p>
+      <div class="card-tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+    `;
+                card.addEventListener('click', () => selectProject(p));
+                list.appendChild(card);
+            });
+        }
+
+        function selectProject(p) {
+            selectedId = p.id;
+            renderProjects();
+            detailEmpty.style.display = 'none';
+            detailContent.classList.add('active');
+
+            const b = statusBadge(p.status);
+            detailContent.querySelector('#detail-status-badge').className = `badge ${b.cls} mb-2`;
+            document.getElementById('detail-status-text').textContent = b.text;
+            document.getElementById('detail-name').textContent = p.name;
+            document.getElementById('detail-level').textContent = p.level || '';
+            document.getElementById('detail-desc').textContent = p.desc;
+            document.getElementById('detail-term-title').textContent = p.name.toLowerCase().replace(/\s+/g, '-') + '.sh';
+
+            const ul = document.getElementById('detail-list');
+            ul.innerHTML = (p.details || []).map(d => `<li>${d}</li>`).join('');
+
+            const tagsEl = document.getElementById('detail-tags');
+            tagsEl.innerHTML = (p.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+
+            // Mini terminal
+            const termBody = document.getElementById('detail-term-body');
+            termBody.innerHTML = '';
+            const lines = [
+                { class: 't-prompt', text: `<span class="t-cmd-text">cat project/${p.id}/info.txt</span>` },
+                { class: 't-output', text: `NAME: ${p.name}` },
+                { class: 't-output', text: `STATUS: ${b.text}` },
+                { class: 'text-green', text: `CATEGORY: ${p.category.toUpperCase()}` },
+                ...(p.details || []).map(d => ({ class: 't-output', text: `✓ ${d}` })),
+                { class: 't-success', text: `[EOF] - ${(p.tags || []).join(' | ')}` },
+            ];
+            lines.forEach((l, i) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = `t-line ${l.class}`;
+                    div.innerHTML = l.text;
+                    termBody.appendChild(div);
+                    termBody.scrollTop = termBody.scrollHeight;
+                }, i * 80);
+            });
+        }
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                selectedId = null;
+                detailEmpty.style.display = 'flex';
+                detailContent.classList.remove('active');
+                renderProjects();
+            });
+        });
+
+        renderProjects();
+    </script>
+<script src="js/effects.js"></script>
+</body>
+
+</html>
